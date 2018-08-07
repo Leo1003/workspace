@@ -24,7 +24,7 @@ case "$SHELLTYPE" in
         do
             . $file
         done
-        if [ -f "~/.oh-my-zsh/oh-my-zsh.sh" ]; then
+        if [ -f "${HOME}/.oh-my-zsh/oh-my-zsh.sh" ]; then
             . "${D}/configures/oh-my-zsh.zsh"
         fi
         ;;
