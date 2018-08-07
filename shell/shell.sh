@@ -14,7 +14,7 @@ case "$SHELLTYPE" in
             . $file
         done
         if [ -f "~/.oh-my-zsh/oh-my-zsh.sh" ]; then
-            source "${D}/configures/oh-my-zsh.zsh"
+            . "${D}/configures/oh-my-zsh.zsh"
         fi
         ;;
     *)
