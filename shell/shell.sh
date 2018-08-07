@@ -2,7 +2,6 @@ SHELLTYPE="$(ps -p $$ -ocomm=)"
 case "$SHELLTYPE" in
     bash)
         D="$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
-        echo "$D"
         for file in ${D}/alias/bash/*.sh
         do
             . $file
@@ -10,7 +9,6 @@ case "$SHELLTYPE" in
         ;;
     zsh)
         D="$( cd "$(dirname "$0")" ; pwd -P )"
-        echo "$D"
         for file in ${D}/alias/zsh/*.zsh
         do
             . $file
