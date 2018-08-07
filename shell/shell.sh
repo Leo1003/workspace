@@ -1,18 +1,28 @@
-D=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
-
 SHELLTYPE="$(ps -p $$ -ocomm=)"
-source "$D/alias.sh"
-source "$D/configures/environments.sh"
 case "$SHELLTYPE" in
     bash)
-        eval source "$D/alias/bash/*.sh"
+        D="$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
+        echo "$D"
+        for file in ${D}/alias/bash/*.sh
+        do
+            . $file
+        done
         ;;
     zsh)
-        eval source "$D/alias/zsh/*.zsh"
+        D="$( cd "$(dirname "$0")" ; pwd -P )"
+        echo "$D"
+        for file in ${D}/alias/zsh/*.zsh
+        do
+            . $file
+        done
         if [ -f "~/.oh-my-zsh/oh-my-zsh.sh" ]; then
-            source "$D/configures/oh-my-zsh.zsh"
+            source "${D}/configures/oh-my-zsh.zsh"
         fi
         ;;
     *)
+        D="$( cd "$(dirname "$0")" ; pwd -P )"
         ;;
 esac
+
+eval . "${D}/alias.sh"
+eval . "${D}/configures/environments.sh"

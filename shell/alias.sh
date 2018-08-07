@@ -1,3 +1,6 @@
 unalias -a
-eval source alias/*.sh
+for file in ${D}/alias/*.sh
+do
+    . $file
+done
 alias aliasf='alias | grep'
