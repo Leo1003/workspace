@@ -1,0 +1,5 @@
+alias tx='tmux -2u'
+alias txa='tmux -2u attach'
+alias txl='tmux ls'
+alias txcfg='vim ~/.tmux.conf'
+alias txrl='tmux source-file ~/.tmux.conf'
