@@ -1,0 +1,7 @@
+[user]
+	email = leo881003@gmail.com
+	name = Leo
+[pull]
+	rebase = false
+[color]
+	ui = auto

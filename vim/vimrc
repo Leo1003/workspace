@@ -1,0 +1,31 @@
+syntax on
+set number
+set t_Co=256
+set tabstop=4
+set expandtab
+set shiftwidth=4
+set cursorline
+set noeb
+set background=dark
+set enc=utf8
+set mouse=a
+set ic
+set hls
+set hlsearch
+set history=50
+set ai
+set smarttab
+set laststatus=2
+set showtabline=2
+set pastetoggle=<F10>
+set clipboard=unnamed
+
+filetype indent on
+colorscheme tender
+
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+let g:powerline_pycmd = 'py3'
+
+command Cpp11 execute "!g++ -lm -lcrypt -O2 -std=c++11 -o " . expand('%:r') . " " . @%
+command Cansi execute "!gcc -lm -lcrypt -O2 -ansi -o " . expand('%:r') . " " . @%
