@@ -1,3 +1,3 @@
 unalias -a
-source alias/*.sh
+eval source alias/*.sh
 alias aliasf='alias | grep'
