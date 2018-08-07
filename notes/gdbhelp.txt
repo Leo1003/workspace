@@ -1,0 +1,334 @@
+除錯工具 gdb (The GNU Project Debugger)
+--------------------------------------------------
+為了除錯，必須在編譯軟體時加上 -g 參數才能讓 gcc 在編譯程式時，將除錯資訊加到程式裡。
+另外 strip 指令為清除應用程式裡的除錯資訊，所以要檢查 makefiel 中是否有執行 strip。
+
+GDB online document
+--------------------
+https://sourceware.org/gdb/onlinedocs/gdb/
+
+
+常用參數
+--------------------
+gdb [options] [executable-file [core-file or process-id]]
+gdb [options] --args executable-file [inferior-arguments ...]
+
+
+====================
+基本操作
+====================
+執行環境_工作目錄 (Program's Working Directory)
+--------------------
+cd        -- 改變工作目錄，和在 shell 下使用 cd 相同。
+pwd       -- 顯示工作目錄。
+
+執行環境_環境變數 (Environment Variables)
+--------------------
+show environment                   -- 顯示所有環境變數的內容。
+show environment varname           -- 顯示所指定環境變數的內容。
+show                               -- 顯示系統GDB資訊(OS, CPU Arch)
+show os                            -- 顯示目前系統 OS
+show endian                        -- 顯示目前系統 endian
+show prompt                        -- 顯示目前 gdb 提示符號
+show args                          -- 顯示 set args 所設定的程式參數。
+
+set                                -- 設定gdb系統的控制變數值(不是program內的)
+set args                           -- 設定程式的程式參數。
+set environment varname [=value]   -- 設定環境變數。
+unset environment varname          -- 取消環境變數設定。
+path                               -- 顯示 PATH 的內容。
+path DIR                           -- 將 DIR 加到 PATH 中。(path 指出 gdb obj code)
+directory DIR                      -- 新增一個路徑到程式碼搜尋路徑。(directory 指出 gdb source code)
+show directories                   -- 顯示目前的程式碼搜尋路徑。
+
+set listsize                       -- 設定要顯示source code的行數範圍。
+                                      e.g. set listsize 10
+set $pc                            -- 設定 PC。
+set convenience                    -- 自己設定變數。
+
+執行環境_SHELL
+--------------------
+shell command                      -- 呼叫 shell 執行外部命令。e.g shell ls
+
+程式執行
+(其中 () 內為簡短指令)
+--------------------
+help (h)                           -- 顯示指令簡短說明。
+                                      e.g. help breakpoint
+Enter                              -- 直接執行上個指令。
+file filename                      -- 開啟檔案，載入可執行檔。等同於 gdb filename。
+run (r)                            -- 開始執行程式，或是從頭再執行程式。
+continue (c)                       -- 離開中斷點，繼續執行程式。停留在下一個中斷點或程式結束。
+next (n)                           -- 單步執行 (step over)。可加執行的列數。
+                                      e.g. next 50
+step (s)                           -- 進入函式 (step into)。
+until (u)                          -- 離開 while, for等迴圈。 執行到程式碼的行數比目前的大，如果目前是迴圈的最後一行，就會離開迴圈。
+finish                             -- 繼續執行程式直到函式返回。
+start                              -- 在 main 設置暫時中斷點，並開始執行程式。
+advance                            -- 執行程式直到指定的位置。
+run arglist                        -- 同 run，並指定程式參數。
+start arglist                      -- 同 start，並指定程式參數。
+kill (k)                           -- 終止程式執行。
+quit (q)                           -- 離開 GDB。
+
+改變程式行為
+--------------------
+return                             -- 直接從函式目前執行位置返回，放棄未執行的部份。
+return expression                  -- 執行 return，回到上一層呼叫的 routine，並傳回 expression 的值。
+set varname=xxx                    -- 更改變數值。
+
+觀看程式碼
+--------------------
+list (l)                           -- 列出目前執行程式碼前後各五行的程式碼；或是接著前次 list 的程式碼，列出之後的程式碼。
+"list -"                           -- 上次列出程式碼的前十行，類似向上翻頁。
+list (l) function                  -- 列出指定的 function。
+                                      e.g. list main
+list (l) filename:line_num         -- 列出指定檔案的指定行數。
+                                      e.g. list main.c:10
+list *ADDRESS                      -- 列出包含指定位址的程式碼，常與 bt 配合使用。
+     (gdb) bt
+      #0  0x08048405 in memory_violation () at test.cpp:9
+      #1  0x08048427 in main () at test.cpp:15
+     (gdb) list *0x08048405
+disassemble (disas)                -- 反組譯目前執行的程式碼。
+disassemble start_addr end_addr    -- 反組譯指定範圍的程式碼。
+                                      e.g. disas 0x32c4 0x32e4
+
+設定中斷點 (breakpoint)
+--------------------
+break (b) line_number              -- 在指定的行數設定中斷點。如果什麼都不指定，表示在目前位置設置中斷點。
+                                      e.g. break 100
+break (b) function                 -- 在指定的 function 設定中斷點。
+                                      e.g. break main
+break (b) filename:function        -- 在指定檔案的指定 function 設定中斷點。(多個檔案有相同函數時需指定檔案。)
+                                      e.g. break main.c:open
+break (b) filename:line_num        -- 在指定檔案的指定行數設定中斷點。
+                                      e.g. break main.c:10
+break [LOCATION] [if CONDITION]    -- 條件式中斷點，當 CONDITION 滿足時才中斷。
+                                      e.g. break main.c:10 if var > 10
+                                      e.g. condition 3 (var > 3)    設置3號中斷點的條件，如果條件為true則中斷。
+                                      e.g. condition 3              清除3號中斷點的條件。
+info break                         -- 列出所有的中斷點及編號。
+delete number                      -- 刪除指定編號的中斷點。
+                                      e.g. delete 5
+                                      e.g. delete 5-7
+disable number                     -- 使指定編號的中斷點失效。如果什麼都不指定，表示disable所有的停止點。
+                                      e.g. disable 3
+                                      e.g. disable 3-5
+enable number                      -- 取消 disable，使指定編號的中斷點生效。
+                                      e.g. enable 2
+                                      e.g. enable 2-3
+clear                              -- 清除所有中斷。
+tbreak (tb)                        -- 暫時中斷(中斷後就自動清除)
+commands                           -- 如果中斷了，則執行commands與end中的一連串gdb命令。
+.....
+end
+                                      e.g. br 100
+                                           commands
+                                           silent
+                                           printf "x is %d\n",x
+                                           end
+
+觀察變數資料
+--------------------
+print (p) varname                  -- 顯示變數內容。
+                                      e.g. print var
+                                      e.g. print &var
+                                      e.g. print *varptr
+printf expression                  -- 使用 C 語言的格式化字串 (printf format string) 功能來顯示。
+                                      e.g. printf "var=%d\n", var
+display varname                    -- 遇到中斷點時，自動顯示變數的內容。
+undisplay display_num              -- 取消指定編號的自動顯示。
+info display                       -- 列出所有 display 及編號。
+whatis varname                     -- 顯示變數型別。
+ptype varname                      -- 顯示 class, struct 的定義內容。
+info locals                        -- 顯示目前的區域變數的值。
+
+設定觀察點 (watchpoint)
+--------------------
+watch varname                      -- 設定 watch point 監看變數，當變數被寫入時，中斷程式。
+rwatch varname                     -- 設定 watch point 監看變數，當變數被讀取時，中斷程式。
+awatch varname                     -- 設定 watch point 監看變數，當變數被讀取或寫入時，中斷程式。
+watch *(int *)0x12345678           -- 設定 watch point 監看記憶體位址，監看範圍由變數型別決定，當此記憶體位址被寫入時，中斷程式。
+info watch                         -- 列出所有的 watchpoint。
+
+觀察記憶體
+--------------------
+x/8xw ADDRESS                      -- 印出 8 個 word (4 bytes) 的記憶體內容。
+x/FMT ADDRESS                      -- 詳細的 FMT 說明，請參考 help x
+dump memory FILE START END         -- 將指定範圍內的記憶體內容 dump 到檔案。
+
+顯示函式呼叫堆疊 (Call Stack)
+--------------------
+GDB 以函式為單位分成一個個的區塊(frame)，每一個 frame 各代表一個函式。
+在 frame 與 frame 之間，正在執行的區塊就是 frame 0。呼叫該區塊的就是 frame 1；而再上上一層的就叫 frame 2，以此類推。
+e.g. main() 是一個 frame，main() 裡面所呼叫的函式是另外一個 frame。
+當呼叫函式時，會把目前的 frame 推到堆疊。這個堆疊就是 frame stack，也就是一般所認知的 call stack。
+
+backtrace (bt)                     -- 顯示目前函式呼叫堆疊 (Call Stack) 內容。
+backtrace full                     -- 列出區域變數 (local variable)。
+where                              -- 顯示目前程式的執行位置，與 backtrace 的作用相同。
+frame                              -- 顯示正在執行的行數、副程式名稱、及其所傳送的參數資訊。
+                                      i.e. frame 0
+frame frame_num                    -- 跳到指定編號的 frame。
+                                      e.g. frame 2
+info frame                         -- 顯示更多的副程式資訊。
+up                                 -- 往上一個 frame。
+                                      e.g. up 2
+down                               -- 往下一個 frame。
+                                      e.g. down
+info args                          -- 顯示傳給函式的呼叫參數。
+
+多重執行緒 (Multi-thread)
+--------------------
+info threads                       -- 顯示目前所有的 thread。
+thread thread_num                  -- 切換 GDB 到指定的 thread_num。
+
+顯示程式相關資訊
+--------------------
+info                               -- 顯示 program debug 資訊。
+info program                       -- 顯示目前PC的值。
+info sharedlibrary                 -- 顯示被載入的共享函式庫 (shared object library)，及載入的記憶體位置。
+info registers                     -- 顯示基本暫存器的內容。
+info all-registers                 -- 顯示所有暫存器的內容。
+print $eax                         -- 顯示 eax 暫存器的內容。
+
+利用 core file 來幫助除錯
+--------------------
+當程式產生 segmentation fault 時，系統會將當時的所有狀態，包括變數值，記憶體資料以及程式中各個函式的呼叫狀態 dump 成一個 core file。
+我們可以用 GDB 來讀取 core file，分析當時引發 segmentation fault 的原因。
+
+core file size 預設為 0，這裡改成沒有限制。設定 core file 最大 size。
+$ ulimit -c unlimited
+
+設置捕捉點來捕捉程式運行時的一些事件。
+--------------------
+catch <event>    當event發生時，停住程式。event可以是下面的內容：
+tcatch <event>
+throw            一個C++拋出的異常。       (throw為關鍵字)
+catch            一個C++捕捉到的異常。     (catch為關鍵字)
+exec             調用系統調用exec時。      (exec為關鍵字，  目前此功能只在HP-UX下有用)
+fork             調用系統調用fork時。      (fork為關鍵字，  目前此功能只在HP-UX下有用)
+vfork            調用系統調用vfork時。     (vfork為關鍵字， 目前此功能只在HP-UX下有用)
+load <libname>   載入共享庫(動態鏈接庫)時。(load為關鍵字，  目前此功能只在HP-UX下有用)
+unload <libname> 卸載共享庫(動態鏈接庫)時。(unload為關鍵字，目前此功能只在HP-UX下有用)
+
+====================
+基本快速入門
+====================
+step1: 啟動 gdb
+--------------------
+方法1(直接啟動)
+gdb ./xxx
+e.g. gdb ffplay
+
+方法2(間接啟動)
+gdb
+file ./xxx
+e.g. gdb
+file ffplay
+
+step2: 列出程式碼
+--------------------
+方法1
+list path/filename:line
+e.g. list ./open.c:100
+方法2
+list filename:line
+e.g. list open.c:100
+方法3
+list filename:function
+e.g. list open.c:main
+方法4
+list function
+e.g. list main
+方法5
+list memory-address
+e.g. list *0x08048123
+
+step3: 設定中斷點
+--------------------
+方法1
+break path/filename:line
+e.g. break ./open.c:100
+方法2
+break filename:line
+e.g. break open.c:100
+方法3
+break path/filename:function
+e.g. break ./open.c:main
+方法4
+break filename:function
+e.g. break open.c:main
+方法5
+break function
+e.g. break main
+方法6(相對目前位置，設置中斷點)
+break +/-line
+e.g. break +100
+方法7
+break if condition
+e.g. break main.c:10 if var > 10
+e.g. 設置3號中斷點的條件，如果條件為true則中斷。
+condition 3 (var > 3)
+e.g. 清除3號中斷點的條件。
+condition 3
+方法8
+e.g.在第100行中斷並且執行command...end中的gdb命令
+break 100
+commands
+silent
+printf "x is %d\n",x
+end
+方法9
+break memory-address
+e.g. br *0x08048123
+
+step4: 中斷點選項
+--------------------
+列出所有中斷點
+info break
+
+暫停中斷點
+disable NumX
+
+恢復中斷點
+enable NumX
+
+清除中斷點
+delete NumX
+
+清除所有中斷點
+clear
+
+step5: 執行程式
+--------------------
+方法1:直接設定參數，執行程式並停留在中斷點。
+run XXXXXX
+
+方法2:間接設定參數，執行程式並停留在中斷點。
+set args XXXXXX
+run
+
+方法3:間接設定參數，執行程式並停留在 main()。
+set args XXXXXX
+start
+
+continue (c)   繼續執行程式。
+next (n)       單步執行 (step over)。
+step (s)       進入函式 (step into)。
+until (u)      離開 while, for等迴圈。
+until (u) line 執行程式直到設定行。
+
+step6: 變數選項
+--------------------
+監視變數
+watch X
+
+持續顯示變數 x
+display x
+
+停止顯示變數 x(不能直接把變數當作 undisplay 的參數)
+undisplay 1
+--------------------------------------------------------------------------------
+
