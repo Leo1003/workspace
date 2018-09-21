@@ -1,5 +1,5 @@
 unalias -a
-for file in ${D}/alias/*.sh
+for file in ${DIR}/alias/*.sh
 do
     . $file
 done

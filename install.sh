@@ -24,6 +24,8 @@ choices=$(dialog --separate-output --stdout --checklist 'Select what to configur
     'Tmux' 'Tmux powerline theme' off \
     'Vim' 'Vim personal settings' off)
 
+retval=$?
+
 clear
 
 get_pwd() {
@@ -32,28 +34,35 @@ get_pwd() {
 
 ENVROOT=`get_pwd`
 
-if [ $? -eq 0 ]; then
+if [ $retval -eq 0 ]; then
         IFS=$'\n'
         for choice in $choices
         do
             echo "You chose: $choice"
             case $choice in
                 'Shell')
+                    . $ENVROOT/shell/install.sh
                     ;;
                 'Git')
                     . $ENVROOT/git/install.sh
                     ;;
                 'GDB')
+                    . $ENVROOT/gdb/install.sh
                     ;;
                 'SSH-agent')
+                    echo 'Not implemented!'
                     ;;
                 'SSH-agent_KDE')
+                    echo 'Not implemented!'
                     ;;
                 'SSH-add')
+                    echo 'Not implemented!'
                     ;;
                 'SSH-add_KDE')
+                    echo 'Not implemented!'
                     ;;
                 'Konsole')
+                    echo 'Not implemented!'
                     ;;
                 'Tmux')
                     . $ENVROOT/tmux/install.sh
@@ -64,5 +73,5 @@ if [ $? -eq 0 ]; then
             esac
         done
 else
-        echo 'Installtion canceled.'
+    echo 'Installtion canceled.'
 fi
