@@ -12,23 +12,56 @@ elif [ $RETVAL -ne 0 ]; then
     exit 1
 fi
 
-choices=$(dialog --separate-output --stdout --checklist 'Select what to install' 0 0 0 \
-    'Shell environment' 'Alias and environment variables' off \
-    'Git config' 'Basic git config' off \
+choices=$(dialog --separate-output --stdout --checklist 'Select what to configure' 0 0 0 \
+    'Shell' 'Alias and environment variables' off \
+    'Git' 'Basic git config' off \
     'GDB' 'GDB peda configures' off \
     'SSH-agent' 'SSH-agent autostart using systemd' off \
     'SSH-agent_KDE' 'SSH-agent autostart using KDE plasma' off \
     'SSH-add' 'Auto add key using systemd' off \
     'SSH-add_KDE' 'Auto add key using KDE plasma' off \
     'Konsole' 'Konsole profiles' off \
-    'Tmux powerline' 'Tmux powerline theme' off \
-    'Vimrc' 'Vim personal settings' off)
+    'Tmux' 'Tmux powerline theme' off \
+    'Vim' 'Vim personal settings' off)
+
+clear
+
+get_pwd() {
+    echo "$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
+}
+
+ENVROOT=`get_pwd`
 
 if [ $? -eq 0 ]; then
         IFS=$'\n'
         for choice in $choices
         do
             echo "You chose: $choice"
+            case $choice in
+                'Shell')
+                    ;;
+                'Git')
+                    . $ENVROOT/git/install.sh
+                    ;;
+                'GDB')
+                    ;;
+                'SSH-agent')
+                    ;;
+                'SSH-agent_KDE')
+                    ;;
+                'SSH-add')
+                    ;;
+                'SSH-add_KDE')
+                    ;;
+                'Konsole')
+                    ;;
+                'Tmux')
+                    . $ENVROOT/tmux/install.sh
+                    ;;
+                'Vim')
+                    . $ENVROOT/vim/install.sh
+                    ;;
+            esac
         done
 else
         echo 'Installtion canceled.'
