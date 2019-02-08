@@ -1,6 +1,27 @@
-syntax on
+call plug#begin('~/.vim/plugged')
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --ts-completer --rust-completer' }
+Plug 'majutsushi/tagbar'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mattn/emmet-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'bronson/vim-visual-star-search'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+
 set number
 set t_Co=256
+syntax on
 set tabstop=4
 set expandtab
 set shiftwidth=4
@@ -18,14 +39,25 @@ set smarttab
 set laststatus=2
 set showtabline=2
 set pastetoggle=<F10>
-set clipboard=unnamed
+set clipboard=unnamedplus
+
+nmap <F8> :NERDTreeToggle<CR>
+nmap <F9> :GitGutterToggle<CR>
 
 filetype indent on
 colorscheme tender
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-let g:powerline_pycmd = 'py3'
+let g:ycm_confirm_extra_conf = 0 
+"let g:powerline_pycmd = 'py3'
+"let g:AutoPairsFlyMode = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ycm#enabled = 1
+let g:airline_theme = 'powerlineish'
 
 command Cpp11 execute "!g++ -lm -lcrypt -O2 -std=c++11 -o " . expand('%:r') . " " . @%
 command Cansi execute "!gcc -lm -lcrypt -O2 -ansi -o " . expand('%:r') . " " . @%
+command Reload execute ":source $MYVIMRC"
+
