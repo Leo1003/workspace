@@ -38,7 +38,7 @@ if [ $retval -eq 0 ]; then
         IFS=$'\n'
         for choice in $choices
         do
-            echo "You chose: $choice"
+            echo "Installing: $choice"
             case $choice in
                 'Shell')
                     . $ENVROOT/shell/install.sh
