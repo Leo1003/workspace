@@ -49,6 +49,8 @@ colorscheme tender
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0 
+let g:ycm_warning_symbol = '->'
+
 "let g:powerline_pycmd = 'py3'
 "let g:AutoPairsFlyMode = 1
 let g:AutoPairsMapBS = 0
