@@ -1,8 +1,8 @@
 #!/bin/bash
 DIR="$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
 
-echo "source $DIR/shell.sh" >> .bashrc
-echo "source $DIR/shell.sh" >> .zshrc
+echo "source $DIR/shell.sh" >> $HOME/.bashrc
+echo "source $DIR/shell.sh" >> $HOME/.zshrc
 
 if [ ! -n "$ZSH" ]; then
     ZSH="$HOME/.oh-my-zsh"
