@@ -26,7 +26,7 @@ Plug 'bronson/vim-visual-star-search'
 Plug 'AndrewRadev/splitjoin.vim'
 " Git Commands
 Plug 'tpope/vim-fugitive'
-" Git blame showing
+" Git diff showing
 Plug 'airblade/vim-gitgutter'
 " Scrolling Animating
 Plug 'yuttie/comfortable-motion.vim'
@@ -39,8 +39,9 @@ syntax on
 set number
 set t_Co=256
 set tabstop=4
-set expandtab
 set shiftwidth=4
+set expandtab
+set smarttab
 set cursorline
 set noeb
 set background=dark
@@ -51,15 +52,20 @@ set hls
 set hlsearch
 set history=50
 set ai
-set smarttab
 set laststatus=2
 set showtabline=2
+set updatetime=1000
 set pastetoggle=<F10>
 set clipboard=unnamedplus
 
 nmap <F7> :TagbarToggle<CR>
 nmap <F8> :NERDTreeToggle<CR>
 nmap <F9> :GitGutterToggle<CR>
+
+let mapleader = ' '
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>p :CtrlPTag<CR>
 
 filetype indent on
 colorscheme tender
@@ -68,9 +74,15 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0 
 let g:ycm_warning_symbol = '->'
 
+let g:gitgutter_max_signs = 1000
+
 "let g:powerline_pycmd = 'py3'
 "let g:AutoPairsFlyMode = 1
 let g:AutoPairsMapBS = 0
+
+let g:tagbar_autofocus = 1
+let g:tagbar_autoshowtag = 1
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#enabled = 1
