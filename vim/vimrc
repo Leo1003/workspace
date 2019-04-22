@@ -1,27 +1,43 @@
 call plug#begin('~/.vim/plugged')
+" Auto completer
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --ts-completer --rust-completer' }
+" A bar showing ctags
 Plug 'majutsushi/tagbar'
+" Fuzzy finder
 Plug 'ctrlpvim/ctrlp.vim'
+" Multiple Cursor support
 Plug 'terryma/vim-multiple-cursors'
+" Useful Utility Commands
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
+" File browser
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+" Support .editerconfig
 Plug 'editorconfig/editorconfig-vim'
+" HTML Tags Input Helper
 Plug 'mattn/emmet-vim'
-Plug 'airblade/vim-gitgutter'
+" Normal Mode Parentheses Add/Modify/Delete
+Plug 'tpope/vim-surround'
+" Auto Pair Parentheses
 Plug 'jiangmiao/auto-pairs'
+" Better '*' searching
 Plug 'bronson/vim-visual-star-search'
+" Switching between single-line and multi-line
 Plug 'AndrewRadev/splitjoin.vim'
+" Git Commands
 Plug 'tpope/vim-fugitive'
+" Git blame showing
+Plug 'airblade/vim-gitgutter'
+" Scrolling Animating
 Plug 'yuttie/comfortable-motion.vim'
+" Airline Appearance
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
+syntax on
 set number
 set t_Co=256
-syntax on
 set tabstop=4
 set expandtab
 set shiftwidth=4
@@ -41,6 +57,7 @@ set showtabline=2
 set pastetoggle=<F10>
 set clipboard=unnamedplus
 
+nmap <F7> :TagbarToggle<CR>
 nmap <F8> :NERDTreeToggle<CR>
 nmap <F9> :GitGutterToggle<CR>
 
