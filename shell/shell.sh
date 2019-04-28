@@ -24,13 +24,8 @@ load_script "${DIR}/configures/environments.sh"
 # Load shell specify scripts
 load_script "${DIR}/configures/environments.${SHELLTYPE}.sh"
 
-# Load all scripts under alias directory
+# Reset all alias first
 unalias -a
-for file in ${DIR}/alias/*.sh
-do
-    load_script $file
-done
-alias aliasf='alias | grep'
 # Load shell specify scripts
 case "$SHELLTYPE" in
     bash)
@@ -63,6 +58,13 @@ case "$SHELLTYPE" in
         done
         ;;
 esac
+
+# Load all scripts under alias directory
+for file in ${DIR}/alias/*.sh
+do
+    load_script $file
+done
+alias aliasf='alias | grep'
 
 unset load_script
 

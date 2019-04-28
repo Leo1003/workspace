@@ -1,4 +1,8 @@
-alias ls='ls --color=auto'
+if type exa 1&>2 2> /dev/null; then
+    alias ls='exa --color=auto --git'
+else
+    alias ls='ls --color=auto'
+fi
 alias lp='ls -alh'
 alias la='ls -a'
 alias ll='ls -lh'
