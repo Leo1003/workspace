@@ -17,5 +17,5 @@ alias cpr='cp -R'
 alias lssd='find /dev/ -type b -exec sh -c "ls --color=always -lh {}" \;'
 
 takeown() {
-    sudo chown -R "$(id -u):$(id -g)" $1
+    sudo chown -R "$(id -u):$(id -g)" "$@"
 }
