@@ -3,6 +3,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --ts-completer --rust-completer' }
 " A bar showing ctags
 Plug 'majutsushi/tagbar'
+" clang-format support
+Plug 'rhysd/vim-clang-format'
 " Fuzzy finder
 Plug 'ctrlpvim/ctrlp.vim'
 " Multiple Cursor support
@@ -67,8 +69,8 @@ nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>W :w!<CR>
 nnoremap <silent> <Leader>x :wq<CR>
 nnoremap <silent> <Leader>q :q<CR>
-nnoremap <silent> <Leader>Q :qall<CR>
 nnoremap <silent> <Leader>p :CtrlPTag<CR>
+autocmd FileType c,cpp,objc nnoremap <silent> <Leader>f :ClangFormat<CR>
 
 filetype indent on
 colorscheme tender
@@ -91,6 +93,10 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ycm#enabled = 1
 let g:airline_theme = 'powerlineish'
+
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format = 0
+let g:clang_format#auto_format_on_insert_leave = 0
 
 command Cpp11 execute "!g++ -lm -lcrypt -O2 -std=c++11 -o " . expand('%:r') . " " . @%
 command Cansi execute "!gcc -lm -lcrypt -O2 -ansi -o " . expand('%:r') . " " . @%
