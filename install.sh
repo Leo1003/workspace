@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 dialog --version > /dev/null
 RETVAL=$?
 if [ $RETVAL -eq 127 ]; then
