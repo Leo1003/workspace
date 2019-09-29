@@ -62,7 +62,7 @@ if [ $retval -eq 0 ]; then
                     echo 'Not implemented!'
                     ;;
                 'Konsole')
-                    echo 'Not implemented!'
+                    . "$ENVROOT/kde/konsole/install.sh"
                     ;;
                 'Tmux')
                     . $ENVROOT/tmux/install.sh
