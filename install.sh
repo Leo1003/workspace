@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
+
+# Checking environment
+## Working Directory Setup
+get_pwd() {
+    echo "$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
+}
+
+ENVROOT=`get_pwd`
+. "$ENVROOT/utils/cfg_install.sh"
+
+## Checking if dialog is installed
 dialog --version > /dev/null
 RETVAL=$?
 if [ $RETVAL -eq 127 ]; then
@@ -12,9 +23,11 @@ elif [ $RETVAL -ne 0 ]; then
     exit 1
 fi
 
+# Choosing install items
 choices=$(dialog --separate-output --stdout --checklist 'Select what to configure' 0 0 0 \
     'Shell' 'Alias and environment variables' off \
     'Git' 'Basic git config' off \
+    'Clang-Format' 'Configurations for clang-format' off \
     'GDB' 'GDB peda configures' off \
     'SSH-agent' 'SSH-agent autostart using systemd' off \
     'SSH-agent_KDE' 'SSH-agent autostart using KDE plasma' off \
@@ -28,12 +41,7 @@ retval=$?
 
 clear
 
-get_pwd() {
-    echo "$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
-}
-
-ENVROOT=`get_pwd`
-
+# Install scripts
 if [ $retval -eq 0 ]; then
         IFS=$'\n'
         for choice in $choices
@@ -48,6 +56,9 @@ if [ $retval -eq 0 ]; then
                     ;;
                 'GDB')
                     . "$ENVROOT/gdb/install.sh"
+                    ;;
+                'Clang-Format')
+                    _cfg_install '.clang-format'
                     ;;
                 'SSH-agent')
                     echo 'Not implemented!'
@@ -75,3 +86,4 @@ if [ $retval -eq 0 ]; then
 else
     echo 'Installtion canceled.'
 fi
+
