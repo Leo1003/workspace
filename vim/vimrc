@@ -35,6 +35,8 @@ Plug 'yuttie/comfortable-motion.vim'
 " Airline Appearance
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" Better tmux integration
+Plug 'tmux-plugins/vim-tmux-focus-events'
 call plug#end()
 
 syntax on
@@ -81,7 +83,6 @@ let g:ycm_warning_symbol = '->'
 
 let g:gitgutter_max_signs = 1000
 
-"let g:powerline_pycmd = 'py3'
 "let g:AutoPairsFlyMode = 1
 let g:AutoPairsMapBS = 0
 
