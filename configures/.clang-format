@@ -7,10 +7,13 @@ Language: Cpp
 
 AlignAfterOpenBracket: Align
 AlignOperands: true
-AllowShortBlocksOnASingleLine: Empty
+# For compatibility
+#AllowShortBlocksOnASingleLine: Empty
+AllowShortBlocksOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: true
-AllowShortLambdasOnASingleLine: Inline
+# For compatibility
+#AllowShortLambdasOnASingleLine: Inline
 BreakBeforeBinaryOperators: None
 BreakBeforeBraces: WebKit
 ColumnLimit: 0
