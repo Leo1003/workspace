@@ -33,3 +33,29 @@ gpp17() {
     name=$(get_output_name "$@")
     g++ -lm -lcrypt -O2 -std='c++17' -o "$name" "$@"
 }
+
+clansi() {
+    name=$(get_output_name "$@")
+    clang -lm -lcrypt -O2 -ansi -o "$name" "$@"
+}
+cl99() {
+    name=$(get_output_name "$@")
+    clang -lm -lcrypt -O2 -std='c99' -o "$name" "$@"
+}
+cl11() {
+    name=$(get_output_name "$@")
+    clang -lm -lcrypt -O2 -std='c11' -o "$name" "$@"
+}
+cpp11() {
+    name=$(get_output_name "$@")
+    clang++ -lm -lcrypt -O2 -std='c++11' -o "$name" "$@"
+}
+cpp14() {
+    name=$(get_output_name "$@")
+    clang++ -lm -lcrypt -O2 -std='c++14' -o "$name" "$@"
+}
+cpp17() {
+    name=$(get_output_name "$@")
+    clang++ -lm -lcrypt -O2 -std='c++17' -o "$name" "$@"
+}
+
