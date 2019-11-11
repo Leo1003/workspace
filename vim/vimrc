@@ -35,6 +35,8 @@ Plug 'yuttie/comfortable-motion.vim'
 " Airline Appearance
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" Tender theme
+Plug 'jacoborus/tender.vim'
 " Better tmux integration
 Plug 'tmux-plugins/vim-tmux-focus-events'
 call plug#end()
@@ -74,6 +76,10 @@ nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>p :CtrlPTag<CR>
 autocmd FileType c,cpp,objc nnoremap <silent> <Leader>f :ClangFormat<CR>
 
+if (has("termguicolors"))
+ set termguicolors
+endif
+
 filetype indent on
 colorscheme tender
 
@@ -93,7 +99,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ycm#enabled = 1
-let g:airline_theme = 'powerlineish'
+let g:airline_theme = 'tender'
 
 let g:clang_format#detect_style_file = 1
 let g:clang_format#auto_format = 0
