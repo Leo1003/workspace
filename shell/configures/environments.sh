@@ -1,5 +1,5 @@
 export GOPATH=~/go
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/.local/bin:$PATH
 export VISUAL=vim
 export EDITOR=vim
 if [ -d "$HOME/go/bin" ]; then
