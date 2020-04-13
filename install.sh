@@ -29,6 +29,7 @@ choices=$(dialog --separate-output --stdout --checklist 'Select what to configur
     'Git' 'Basic git config' off \
     'Clang-Format' 'Configurations for clang-format' off \
     'GDB' 'GDB peda configures' off \
+    'SSH-pubkey' 'SSH login public keys' off \
     'SSH-agent' 'SSH-agent autostart using systemd' off \
     'SSH-agent_KDE' 'SSH-agent autostart using KDE plasma' off \
     'SSH-add' 'Auto add key using systemd' off \
@@ -59,6 +60,9 @@ if [ $retval -eq 0 ]; then
                     ;;
                 'Clang-Format')
                     _cfg_install '.clang-format'
+                    ;;
+                'SSH-pubkey')
+                    . "$ENVROOT/sshkeys/install.sh"
                     ;;
                 'SSH-agent')
                     echo 'Not implemented!'
