@@ -42,6 +42,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 call plug#end()
 
 syntax on
+filetype plugin indent on
 set number
 set t_Co=256
 set tabstop=4
@@ -82,7 +83,6 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-filetype indent on
 colorscheme tender
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
