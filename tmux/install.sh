@@ -9,3 +9,7 @@ if [ ! -f "${HOME}/.tmux/plugins/tpm/tpm" ]; then
     git clone 'https://github.com/tmux-plugins/tpm' "${HOME}/.tmux/plugins/tpm"
 fi
 
+echo 'Installing plugins...'
+export TMUX_PLUGIN_MANAGER_PATH="${HOME}/.tmux/plugins"
+${TMUX_PLUGIN_MANAGER_PATH}/tpm/scripts/install_plugins.sh
+
