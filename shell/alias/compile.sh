@@ -59,3 +59,11 @@ cpp17() {
     clang++ -lm -lcrypt -O2 -std='c++17' -o "$name" "$@"
 }
 
+gcc_incdir() {
+    echo | gcc -E -Wp,-v -
+}
+
+gpp_incdir() {
+    echo | g++ -xc++ -E -Wp,-v -
+}
+
