@@ -47,8 +47,6 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug '~/.vimrc-plug'
 call plug#end()
 
-colorscheme tender
-
 syntax on
 filetype plugin indent on
 set number
@@ -105,11 +103,14 @@ if has("autocmd")
     augroup END
 endif
 
+" Add compatibility for colorscheme
 if has("termguicolors")
     set t_8f=[38;2;%lu;%lu;%lum
     set t_8b=[48;2;%lu;%lu;%lum
     set termguicolors
 endif
+
+colorscheme tender
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
