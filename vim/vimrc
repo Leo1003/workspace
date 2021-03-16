@@ -1,10 +1,14 @@
 call plug#begin('~/.vim/plugged')
-" Auto completer
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --ts-completer --rust-completer' }
+let $PLUGLOCAL = $HOME . "/.vim/plug.local.vim"
+if filereadable($PLUGLOCAL)
+    source $PLUGLOCAL
+endif
+" Asynchronous Lint Engine
+Plug 'dense-analysis/ale'
 " A bar showing ctags
 Plug 'majutsushi/tagbar'
 " clang-format support
-Plug 'rhysd/vim-clang-format'
+Plug 'rhysd/vim-clang-format', { 'on': ['ClangFormat'] }
 " Fuzzy finder
 Plug 'ctrlpvim/ctrlp.vim'
 " Multiple Cursor support
@@ -17,7 +21,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " Support .editerconfig
 Plug 'editorconfig/editorconfig-vim'
 " HTML Tags Input Helper
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['html'] }
 " Normal Mode Parentheses Add/Modify/Delete
 Plug 'tpope/vim-surround'
 " Auto Pair Parentheses
@@ -39,7 +43,11 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'jacoborus/tender.vim'
 " Better tmux integration
 Plug 'tmux-plugins/vim-tmux-focus-events'
+" My custom plugin
+Plug '~/.vimrc-plug'
 call plug#end()
+
+colorscheme tender
 
 syntax on
 filetype plugin indent on
@@ -50,15 +58,14 @@ set shiftwidth=4
 set expandtab
 set smarttab
 set cursorline
-set noeb
+set noerrorbells
 set background=dark
 set enc=utf8
 set mouse=a
-set ic
-set hls
+set ignorecase
 set hlsearch
 set history=50
-set ai
+set autoindent
 set laststatus=2
 set showtabline=2
 set updatetime=1000
@@ -75,19 +82,45 @@ nnoremap <silent> <Leader>W :w!<CR>
 nnoremap <silent> <Leader>x :wq<CR>
 nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>p :CtrlPTag<CR>
-autocmd FileType c,cpp,objc nnoremap <silent> <Leader>f :ClangFormat<CR>
+nnoremap <silent> <Leader>f :ALEFix<CR>
 
-if (has("termguicolors"))
+if has("autocmd")
+    " have Vim jump to the last position when reopening a file
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+    " Exit Vim if NERDTree is the only window left.
+    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+                \ quit | endif
+    " Open the existing NERDTree on each new tab.
+    autocmd BufWinEnter * silent NERDTreeMirror
+
+    augroup _my_filetypes
+        autocmd!
+        " Hot key for clangformat
+        autocmd FileType c,cpp,objc nnoremap <silent> <Leader>f :ClangFormat<CR>
+
+        " List of special indent settings
+        autocmd FileType make setlocal noexpandtab
+        autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab
+    augroup END
+endif
+
+if has("termguicolors")
     set t_8f=[38;2;%lu;%lu;%lum
     set t_8b=[48;2;%lu;%lu;%lum
     set termguicolors
 endif
 
-colorscheme tender
-
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0 
+let g:ycm_confirm_extra_conf = 0
 let g:ycm_warning_symbol = '->'
+
+" ALE configurations
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '->'
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_c_clangformat_use_local_file = 1
 
 let g:gitgutter_max_signs = 1000
 
@@ -97,7 +130,9 @@ let g:AutoPairsMapBS = 0
 let g:tagbar_autofocus = 1
 let g:tagbar_autoshowtag = 1
 
+" Airline configurations
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ycm#enabled = 1
