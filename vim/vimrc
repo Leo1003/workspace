@@ -98,6 +98,7 @@ if has("autocmd")
         autocmd FileType c,cpp,objc nnoremap <silent> <Leader>f :ClangFormat<CR>
 
         " List of special indent settings
+        autocmd FileType fstab setlocal shiftwidth=8 tabstop=8 noexpandtab
         autocmd FileType make setlocal noexpandtab
         autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab
     augroup END
