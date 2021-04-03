@@ -19,13 +19,30 @@ case "$SHELLTYPE" in
         ;;
 esac
 
+# Reset all alias first
+unalias -a
+if [ "$SHELLTYPE" = "zsh" ]; then
+    if [ -f "${HOME}/.oh-my-zsh/oh-my-zsh.sh" ]; then
+        load_script "${DIR}/configures/oh-my-zsh.zsh"
+    fi
+    # Load oh my zsh
+    source $ZSH/oh-my-zsh.sh
+
+    # Determine zsh-syntax-highlighting if exists
+    if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+        source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    elif [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+        source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    elif [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+        source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    fi
+fi
+
 # Load environment configures
 load_script "${DIR}/configures/environments.sh"
 # Load shell specify scripts
 load_script "${DIR}/configures/environments.${SHELLTYPE}.sh"
 
-# Reset all alias first
-unalias -a
 # Load shell specify scripts
 case "$SHELLTYPE" in
     bash)
@@ -39,19 +56,6 @@ case "$SHELLTYPE" in
         do
             load_script $file
         done
-        if [ -f "${HOME}/.oh-my-zsh/oh-my-zsh.sh" ]; then
-            load_script "${DIR}/configures/oh-my-zsh.zsh"
-        fi
-        # Load oh my zsh
-        source $ZSH/oh-my-zsh.sh
-        # Determine zsh-syntax-highlighting if exists
-        if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-            source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-        elif [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-            source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-        elif [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-            source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-        fi
         ;;
     *)
         for file in ${DIR}/alias/${SHELLTYPE}/*.sh
