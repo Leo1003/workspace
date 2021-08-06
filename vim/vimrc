@@ -21,7 +21,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " Support .editerconfig
 Plug 'editorconfig/editorconfig-vim'
 " HTML Tags Input Helper
-Plug 'mattn/emmet-vim', { 'for': ['html'] }
+Plug 'mattn/emmet-vim', { 'for': ['htm', 'html'] }
 " Normal Mode Parentheses Add/Modify/Delete
 Plug 'tpope/vim-surround'
 " Auto Pair Parentheses
@@ -30,6 +30,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'bronson/vim-visual-star-search'
 " Switching between single-line and multi-line
 Plug 'AndrewRadev/splitjoin.vim'
+" Automatically relative line number
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Git Commands
 Plug 'tpope/vim-fugitive'
 " Git diff showing
