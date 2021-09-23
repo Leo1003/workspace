@@ -53,34 +53,16 @@ load_script_with_custom "${DIR}/configures/environments.sh"
 # Load shell specify scripts
 load_script_with_custom "${DIR}/configures/environments.${SHELLTYPE}.sh"
 
-# Load shell specify scripts
-case "$SHELLTYPE" in
-    bash)
-        for file in ${DIR}/alias/bash/*.sh
-        do
-            load_script_with_custom $file
-        done
-        ;;
-    zsh)
-        for file in ${DIR}/alias/zsh/*.zsh
-        do
-            load_script_with_custom $file
-        done
-        ;;
-    *)
-        for file in ${DIR}/alias/${SHELLTYPE}/*.sh
-        do
-            load_script_with_custom $file
-        done
-        ;;
-esac
-
 # Load all scripts under alias directory
-for file in ${DIR}/alias/*.sh
+for s in ${DIR}/alias/*.sh
 do
-    load_script_with_custom $file
+    load_script_with_custom "$s"
+done
+# Load shell specify alias scripts
+for s in ${DIR}/alias/${SHELLTYPE}/*.sh
+do
+    load_script_with_custom "$s"
 done
 alias aliasf='alias | grep'
 
 unset load_script_with_custom
-
