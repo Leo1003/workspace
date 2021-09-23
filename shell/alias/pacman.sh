@@ -1,4 +1,4 @@
-if type pacman 2>/dev/null 1>&2; then
+if has_command pacman; then
     alias sps='sudo pacman -S'
     alias spss='pacman -Ss'
     alias spsi='pacman -Si'
