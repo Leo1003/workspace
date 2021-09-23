@@ -1,2 +1,2 @@
-*.custom.sh
-*.custom.zsh
+*.local.sh
+*.local.zsh
