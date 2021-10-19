@@ -5,6 +5,8 @@ if filereadable($PLUGLOCAL)
 endif
 " Asynchronous Lint Engine
 Plug 'dense-analysis/ale'
+" TOML syntax
+Plug 'cespare/vim-toml'
 " A bar showing ctags
 Plug 'majutsushi/tagbar'
 " clang-format support
