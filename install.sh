@@ -50,25 +50,22 @@ if [ $retval -eq 0 ]; then
             echo "Installing: $choice"
             case $choice in
                 'Shell')
-                    . "$ENVROOT/shell/install.sh"
+                    "$ENVROOT/shell/install.sh"
                     ;;
                 'Git')
-                    . "$ENVROOT/git/install.sh"
+                    "$ENVROOT/git/install.sh"
                     ;;
                 'GDB')
-                    . "$ENVROOT/gdb/install.sh"
+                    "$ENVROOT/gdb/install.sh"
                     ;;
                 'Clang-Format')
                     _cfg_install '.clang-format'
                     ;;
                 'SSH-pubkey')
-                    . "$ENVROOT/sshkeys/install.sh"
+                    "$ENVROOT/sshkeys/install.sh"
                     ;;
                 'SSH-agent')
-                    echo 'Not implemented!'
-                    ;;
-                'SSH-agent_KDE')
-                    echo 'Not implemented!'
+                    "$ENVROOT/ssh-agent/install.sh"
                     ;;
                 'SSH-add')
                     echo 'Not implemented!'
@@ -77,13 +74,13 @@ if [ $retval -eq 0 ]; then
                     echo 'Not implemented!'
                     ;;
                 'Konsole')
-                    . "$ENVROOT/kde/konsole/install.sh"
+                    "$ENVROOT/kde/konsole/install.sh"
                     ;;
                 'Tmux')
-                    . "$ENVROOT/tmux/install.sh"
+                    "$ENVROOT/tmux/install.sh"
                     ;;
                 'Vim')
-                    . "$ENVROOT/vim/install.sh"
+                    "$ENVROOT/vim/install.sh"
                     ;;
             esac
         done
