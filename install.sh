@@ -73,6 +73,9 @@ if [ $retval -eq 0 ]; then
                 'SSH-add_KDE')
                     echo 'Not implemented!'
                     ;;
+                'Starship')
+                    "$ENVROOT/starship/install.sh"
+                    ;;
                 'Konsole')
                     "$ENVROOT/kde/konsole/install.sh"
                     ;;
