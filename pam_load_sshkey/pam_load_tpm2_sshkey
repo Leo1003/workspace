@@ -1,0 +1,33 @@
+#!/bin/sh
+
+change_to_pam_user() {
+    if [ "$(id -u $PAM_USER)" -eq 0 ]; then
+        return
+    fi
+    if [ -z "$__PAM_CHUSER" -a "$UID" -eq 0 ]; then
+        export __PAM_CHUSER=1
+        exec runuser -u "$PAM_USER" -- "$0" "$@"
+        exit 127
+    fi
+}
+
+change_to_pam_user
+
+keyctl new_session
+keyctl padd user pam-ssh-askpass @s
+
+export SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent.socket"
+export SSH_ASKPASS_REQUIRE=force
+export SSH_ASKPASS=/usr/local/bin/pam-ssh-askpass
+
+ssh-add -s /usr/lib/pkcs11/libtpm2_pkcs11.so
+retval=$?
+
+if [ $retval -ne 0 ]; then
+    echo "Failed to load TPM2 PKCS#11 module. Return code: $retval" >&2
+fi
+
+keyctl purge user
+
+exit 0
+

@@ -1,0 +1,11 @@
+#!/bin/sh
+keyid=`keyctl request user pam-ssh-askpass`
+retval=$?
+
+if [ $retval -ne 0 ]; then
+    echo "Cannot retrieve login password from keyctl." >&2
+    exit $retval
+fi
+
+keyctl print $keyid
+
