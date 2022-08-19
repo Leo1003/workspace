@@ -27,13 +27,12 @@ fi
 choices=$(dialog --separate-output --stdout --checklist 'Select what to configure' 0 0 0 \
     'Shell' 'Alias and environment variables' off \
     'Git' 'Basic git config' off \
-    'Clang-Format' 'Configurations for clang-format' off \
     'GDB' 'GDB peda configures' off \
-    'SSH-pubkey' 'SSH login public keys' off \
-    'SSH-agent' 'SSH-agent autostart using systemd' off \
-    'SSH-agent_KDE' 'SSH-agent autostart using KDE plasma' off \
-    'SSH-add' 'Auto add key using systemd' off \
-    'SSH-add_KDE' 'Auto add key using KDE plasma' off \
+    'clang-format' 'Configurations for clang-format' off \
+    'ssh-pubkey' 'SSH login public keys' off \
+    'ssh-agent' 'SSH-agent autostart using systemd' off \
+    'PAM ssh-add' 'Auto add key using systemd' off \
+    'Starship' 'Starship configurations' off \
     'Konsole' 'Konsole profiles' off \
     'Tmux' 'Tmux powerline theme' off \
     'Vim' 'Vim personal settings' off)
@@ -58,16 +57,16 @@ if [ $retval -eq 0 ]; then
                 'GDB')
                     "$ENVROOT/gdb/install.sh"
                     ;;
-                'Clang-Format')
+                'clang-format')
                     _cfg_install '.clang-format'
                     ;;
-                'SSH-pubkey')
+                'ssh-pubkey')
                     "$ENVROOT/sshkeys/install.sh"
                     ;;
-                'SSH-agent')
+                'ssh-agent')
                     "$ENVROOT/ssh-agent/install.sh"
                     ;;
-                'PAM SSH-add')
+                'PAM ssh-add')
                     "$ENVROOT/pam_load_sshkey/install.sh"
                     ;;
                 'Starship')
