@@ -67,11 +67,8 @@ if [ $retval -eq 0 ]; then
                 'SSH-agent')
                     "$ENVROOT/ssh-agent/install.sh"
                     ;;
-                'SSH-add')
-                    echo 'Not implemented!'
-                    ;;
-                'SSH-add_KDE')
-                    echo 'Not implemented!'
+                'PAM SSH-add')
+                    "$ENVROOT/pam_load_sshkey/install.sh"
                     ;;
                 'Starship')
                     "$ENVROOT/starship/install.sh"
