@@ -47,5 +47,36 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git sudo systemd)
+plugins=(sudo)
+
+if has_command git; then
+    plugins+=(git gitignore)
+fi
+if has_command systemctl; then
+    plugins+=(systemd)
+fi
+if has_command rustc; then
+    plugins+=(rust)
+fi
+if has_command kubectl; then
+    plugins+=(kubectl)
+fi
+if has_command pacman; then
+    plugins+=(archlinux)
+fi
+if has_command yum; then
+    plugins+=(yum)
+fi
+if has_command dnf; then
+    plugins+=(dnf)
+fi
+if has_command ansible; then
+    plugins+=(ansible)
+fi
+if has_command composer; then
+    plugins+=(composer)
+fi
+if has_command firewall-cmd; then
+    plugins+=(firewalld)
+fi
 
