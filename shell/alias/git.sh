@@ -1,5 +1,7 @@
 alias gstre='git stash show -p | git apply --reverse'
 
+alias sudo-git='sudo git -c "include.path=$HOME/.gitconfig"'
+
 git-ls-all-objects() {
     local obj_path="$(git rev-parse --git-path objects)"
 
