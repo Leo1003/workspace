@@ -28,7 +28,7 @@ choices=$(dialog --separate-output --stdout --checklist 'Select what to configur
     'Shell' 'Alias and environment variables' off \
     'Git' 'Basic git config' off \
     'GDB' 'GDB peda configures' off \
-    'clang-format' 'Configurations for clang-format' off \
+    'configurations' 'Configurations of some programming language linter' off \
     'ssh-pubkey' 'SSH login public keys' off \
     'ssh-agent' 'SSH-agent autostart using systemd' off \
     'PAM ssh-add' 'Auto add key using systemd' off \
@@ -57,8 +57,8 @@ if [ $retval -eq 0 ]; then
                 'GDB')
                     "$ENVROOT/gdb/install.sh"
                     ;;
-                'clang-format')
-                    _cfg_install '.clang-format'
+                'configurations')
+                    "$ENVROOT/configurations/install.sh"
                     ;;
                 'ssh-pubkey')
                     "$ENVROOT/sshkeys/install.sh"
