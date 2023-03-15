@@ -17,3 +17,5 @@ fi
 # Try load Arch Linux command-not-found script
 try_scripts "/usr/share/doc/pkgfile/command-not-found.zsh"
 
+# Allow to make a command ignored by history by prefixing with space
+setopt HIST_IGNORE_SPACE
