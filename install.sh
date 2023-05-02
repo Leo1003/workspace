@@ -35,7 +35,9 @@ choices=$(dialog --separate-output --stdout --checklist 'Select what to configur
     'Starship' 'Starship configurations' off \
     'Konsole' 'Konsole profiles' off \
     'Tmux' 'Tmux powerline theme' off \
-    'Vim' 'Vim personal settings' off)
+    'Vim' 'Vim personal settings' off \
+    'Nvim' 'Nvim with NvChad personal settings' off \
+)
 
 retval=$?
 
@@ -80,6 +82,9 @@ if [ $retval -eq 0 ]; then
                     ;;
                 'Vim')
                     "$ENVROOT/vim/install.sh"
+                    ;;
+                'Nvim')
+                    "$ENVROOT/nvim/install.sh"
                     ;;
             esac
         done
