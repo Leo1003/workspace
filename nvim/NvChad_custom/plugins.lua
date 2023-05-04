@@ -25,6 +25,11 @@ local plugins = {
 
   -- Personal install plugins
   {
+    "ethanholz/nvim-lastplace",
+    event = "BufReadPre",
+    config = true,
+  },
+  {
     "kylechui/nvim-surround",
     event = "VeryLazy",
     config = true,
