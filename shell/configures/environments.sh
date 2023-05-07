@@ -1,7 +1,13 @@
 export PATH=~/bin:~/.local/bin:$PATH
-export VISUAL=vim
-export EDITOR=vim
 export GPG_TTY=$(tty)
+
+if has_command nvim; then
+    export VISUAL=nvim
+    export EDITOR=nvim
+elif has_command vim; then
+    export VISUAL=vim
+    export EDITOR=vim
+fi
 
 if [ ! -S "$SSH_AUTH_SOCK" ]; then
     if [ -S "$XDG_RUNTIME_DIR/ssh-agent.socket" ]; then
