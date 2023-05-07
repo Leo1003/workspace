@@ -9,6 +9,7 @@ local servers = {
   "cssls",
   "tsserver",
   "clangd",
+  "ansiblels",
   "rust_analyzer",
 }
 
