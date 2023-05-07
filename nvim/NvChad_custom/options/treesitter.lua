@@ -16,7 +16,7 @@ return {
     "markdown_inline",
     "comment",
     "diff",
-    "gitcommit",
+    --"gitcommit",
     "git_rebase",
     "gitignore",
 
