@@ -28,6 +28,7 @@ return {
     "rust",
     "html",
     "php",
+    "jsonnet",
   },
   highlight = {
     enable = true,
