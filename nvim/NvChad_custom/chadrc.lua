@@ -11,6 +11,10 @@ M.ui = {
   nvdash = {
     load_on_startup = true,
   },
+  statusline = {
+    theme = "minimal",
+    separator_style = "block",
+  },
 
   hl_override = highlights.override,
   hl_add = highlights.add,
