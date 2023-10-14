@@ -15,11 +15,16 @@ local servers = {
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    on_attach = on_attach,
+    on_attach = function(client, bufnr)
+      on_attach(client, bufnr)
+    end,
     capabilities = capabilities,
     update_in_insert = true,
     settings = {
       ["rust-analyzer"] = {
+        cargo = {
+          features = "all",
+        },
         check = {
           command = "clippy",
         },
