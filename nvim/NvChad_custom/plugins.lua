@@ -65,6 +65,32 @@ local plugins = {
     },
     config = true,
   },
+  {
+    "Saecki/crates.nvim",
+    event = {"BufReadPre Cargo.toml"},
+    dependencies = {
+      {
+        "neovim/nvim-lspconfig",
+        "hrsh7th/nvim-cmp",
+      },
+    },
+    config = function(_, opts)
+      require("crates").setup(opts)
+
+      vim.api.nvim_create_autocmd("BufRead", {
+        group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
+        pattern = "Cargo.toml",
+        callback = function()
+          require("cmp").setup.buffer({ sources = { { name = "crates" } } })
+        end,
+      })
+    end,
+    opts = {
+      null_ls = {
+        enabled = true,
+      },
+    },
+  },
 
   -- override plugin configs
   {
