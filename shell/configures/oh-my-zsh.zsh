@@ -61,6 +61,9 @@ fi
 if has_command kubectl; then
     plugins+=(kubectl)
 fi
+if has_command helm; then
+    plugins+=(helm)
+fi
 if has_command pacman; then
     plugins+=(archlinux)
 fi
