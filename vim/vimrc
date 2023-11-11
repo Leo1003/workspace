@@ -60,6 +60,7 @@ set shiftwidth=4
 set expandtab
 set smarttab
 set cursorline
+set modeline
 set noerrorbells
 set background=dark
 set enc=utf8
