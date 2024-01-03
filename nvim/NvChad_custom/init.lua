@@ -5,6 +5,7 @@
 --   pattern = "*",
 --   command = "tabdo wincmd =",
 -- })
+vim.opt.modeline = true
 vim.opt.relativenumber = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
