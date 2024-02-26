@@ -78,6 +78,15 @@ fi
 if has_command pacman; then
     plugins+=(archlinux)
 fi
+if has_command apt-get; then
+    plugins+=(debian)
+fi
+if has_command flux; then
+    plugins+=(fluxcd)
+fi
+if has_command podman; then
+    plugins+=(podman)
+fi
 if has_command yum; then
     plugins+=(yum)
 fi
