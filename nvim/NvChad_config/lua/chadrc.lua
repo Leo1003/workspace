@@ -5,20 +5,21 @@
 ---@type ChadrcConfig
 local M = {}
 
+-- Path to overriding theme and highlights files
+local highlights = require "highlights"
+
 M.base46 = {
-	theme = "onedark",
-
-	-- hl_override = {
-	-- 	Comment = { italic = true },
-	-- 	["@comment"] = { italic = true },
-	-- },
+  theme = "doomchad",
+  theme_toggle = { "doomchad", "onedark" },
+  hl_add = highlights.add,
+  hl_override = highlights.override,
 }
-
--- M.nvdash = { load_on_startup = true }
--- M.ui = {
---       tabufline = {
---          lazyload = false
---      }
---}
+M.ui = {
+  statusline = {
+    theme = "minimal",
+    separator_style = "block",
+  },
+}
+M.nvdash = { load_on_startup = true }
 
 return M
