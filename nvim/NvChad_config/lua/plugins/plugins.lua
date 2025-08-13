@@ -1,16 +1,5 @@
-
 ---@type LazyPluginSpec[]
 local plugins = {
-
-  -- Override plugin definition options
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "nvchad.configs.lspconfig"
-      require "configs.lspconfig"
-    end, -- Override to setup mason-lspconfig
-  },
-
   -- Personal install plugins
   {
     "ethanholz/nvim-lastplace",
@@ -35,9 +24,9 @@ local plugins = {
   {
     "Wansmer/treesj",
     keys = {
-      { '<space>m', desc = "Split or Join code block with autodetect" },
-      { '<space>j', desc = "Join code block" },
-      { '<space>s', desc = "Split code block" },
+      { "<space>m", desc = "Split or Join code block with autodetect" },
+      { "<space>j", desc = "Join code block" },
+      { "<space>s", desc = "Split code block" },
     },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
@@ -55,7 +44,7 @@ local plugins = {
   },
   {
     "Saecki/crates.nvim",
-    event = {"BufReadPre Cargo.toml"},
+    event = { "BufReadPre Cargo.toml" },
     dependencies = {
       {
         "neovim/nvim-lspconfig",
@@ -69,27 +58,27 @@ local plugins = {
         group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
         pattern = "Cargo.toml",
         callback = function()
-          require("cmp").setup.buffer({ sources = { { name = "crates" } } })
+          require("cmp").setup.buffer { sources = { { name = "crates" } } }
         end,
       })
     end,
-    opts = {},
-  },
-
-  -- override plugin configs
-  {
-    "nvim-tree/nvim-tree.lua",
-    opts = require("configs.nvim_tree"),
-  },
-
-  {
-    "williamboman/mason.nvim",
-    opts = require("configs.mason"),
-  },
-
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = require("configs.treesitter"),
+    opts = {
+      completion = {
+        cmp = {
+          enabled = true,
+        }
+      },
+      lsp = {
+        enabled = true,
+        actions = true,
+        completion = true,
+        hover = true,
+      },
+      popup = {
+        autofocus = true,
+        border = "single",
+      },
+    },
   },
 }
 

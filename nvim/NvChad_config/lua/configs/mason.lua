@@ -25,7 +25,6 @@ return {
 
     -- Rust
     "rust-analyzer",
-    "rustfmt",
 
     -- PHP
     "phpcs",

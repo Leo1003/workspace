@@ -6,6 +6,7 @@ local servers = {
   "ts_ls",
   "clangd",
   "ansiblels",
+  "lua_ls",
   "rust_analyzer",
 }
 vim.lsp.enable(servers)

@@ -9,6 +9,9 @@ M.override = {
   Comment = {
     italic = true,
   },
+  IblScopeChar = {
+    fg = { "nord_blue", 2 },
+  },
 }
 
 ---@type HLTable

@@ -1,7 +1,8 @@
 return {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    cmd = { "ConformInfo" },
+    event = 'BufWritePre',
     opts = require "configs.conform",
   },
 
@@ -13,16 +14,21 @@ return {
     end,
   },
 
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = require("configs.nvim_tree"),
+  },
+
+  {
+    "williamboman/mason.nvim",
+    opts = require("configs.mason"),
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = require("configs.treesitter"),
+  },
+
   -- test new blink
   -- { import = "nvchad.blink.lazyspec" },
-
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
 }

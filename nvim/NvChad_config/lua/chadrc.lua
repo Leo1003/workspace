@@ -10,7 +10,7 @@ local highlights = require "highlights"
 
 M.base46 = {
   theme = "doomchad",
-  theme_toggle = { "doomchad", "onedark" },
+  theme_toggle = { "doomchad", "doomchad" },
   hl_add = highlights.add,
   hl_override = highlights.override,
 }
