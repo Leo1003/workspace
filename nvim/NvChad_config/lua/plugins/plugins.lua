@@ -2,6 +2,31 @@
 local plugins = {
   -- Personal install plugins
   {
+    'NMAC427/guess-indent.nvim',
+    event = 'BufReadPre',
+    opts = {
+      auto_cmd = true,
+      override_editorconfig = false,
+      filetype_exclude = {
+      },
+      buftype_exclude = {
+        "help",
+        "nofile",
+        "terminal",
+        "prompt",
+      },
+      on_tab_options = {
+        ["expandtab"] = false,
+      },
+      on_space_options = {
+        ["expandtab"] = true,
+        ["tabstop"] = "detected",
+        ["softtabstop"] = "detected",
+        ["shiftwidth"] = "detected",
+      },
+    },
+  },
+  {
     "ethanholz/nvim-lastplace",
     event = "BufReadPre",
     config = true,
